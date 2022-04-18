@@ -1,0 +1,22 @@
+workflows:
+  my-workflow:
+    scripts:
+      - name: say hello
+        script: echo "Hello Codemagician!"
+workflows:
+  my-workflow:
+    scripts:
+      - name: Build Android APK
+        working_directory: android
+        script: ./gradlew assembleRelease
+    artifacts:
+      - app/build/outputs/**/**/*.apk
+workflows:
+  my-workflow:
+    triggering:
+      events:
+        - push
+      branch_patterns: 
+        - pattern: development
+          include: false
+      cancel_previous_builds: true
